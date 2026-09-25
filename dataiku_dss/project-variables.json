@@ -1,0 +1,11 @@
+{
+  "keep_video_frac": 0.025,
+  "keep_user_frac": 0.1,
+  "include_item_features": "false",
+  "n_rounds": 500,
+  "n_trials": 250,
+  "epsilon": 0.1,
+  "ucb_alpha": 0.5,
+  "linucb_alpha": 0.3,
+  "random_seed": ""
+}

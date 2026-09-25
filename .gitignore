@@ -19,3 +19,7 @@ env/
 # editor
 .vscode/
 .idea/
+
+# graphify / brain artifacts
+graphify-out/
+*-command-messagegraphifycommand-message.txt
