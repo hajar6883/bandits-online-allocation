@@ -76,7 +76,7 @@ mab_bandits/
 │   ├── recipes/                  the three Python recipes
 │   ├── scenarios/                scenario script
 │   └── screenshots/
-├── report/                       team report (PDF)
+├── report/                       original INF581 report (Amazon Sales dataset)
 ├── data/                         KuaiRec CSVs (not committed, see data/README.md)
 └── results/                      generated plots
 ```
@@ -99,7 +99,33 @@ python scripts/run_contextual.py --rounds 500 --trials 250 --alpha 0.3
 python scripts/compare_all.py
 ```
 
-## Report
+## Report, and how the project evolved
 
-Full write-up with results and discussion in
-`report/INF581_Team_Project_Report.pdf`.
+`report/INF581_Team_Project_Report.pdf` is the original INF581 team report. It
+studies the **same algorithms on a different dataset**: Amazon Sales, roughly
+1,000 products, with ratings as the reward signal.
+
+The work in this repository is the continuation of that report, and it closes
+the limitation the report ends on. Page 3 notes that "the context was generated
+randomly in the case of LinUCB", and that "further studies will consider a real
+context including user features".
+
+That is what changed here:
+
+| | Report (Amazon Sales) | This repository (KuaiRec) |
+|---|---|---|
+| Scale | ~1,000 products | 4.7M logged interactions |
+| Context | randomly generated | 26 real user features per interaction |
+| Reward | product rating, with a dynamic explorer-score adjustment | `watch_ratio > 0.8`, Bernoulli |
+| User features | absent, derived via SVD | present in the dataset |
+| Evaluation | simulated user interactions | off-policy replay of a real log |
+
+So the contextual results here rest on genuine user context rather than
+synthetic signal, which is the comparison the report wanted to make and could
+not. One idea did carry over: the report's "explorer score", a measure of how much
+a user tends to explore, reappears as `exp_score_generator` and the
+`kuairec_user_profile` dataset, recomputed from video tags instead of product
+purchases.
+
+Read the report for the framing, the algorithm derivations and the background;
+read this repository for the results on real context.
